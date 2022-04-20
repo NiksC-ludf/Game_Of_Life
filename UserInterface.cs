@@ -10,17 +10,8 @@ namespace GameOfLife
     {
         private const string notNumericMessage = "Please input numeric value.";
         private const string pressAnyKeyMessage = "Press any key to continiue.";
-        private static string NotInRangeMessage = "The value is not within range.";
-        static int rows;
-        static int columns;
+        private static string notInRangeMessage = "The value is not within range.";
 
-        public static void UserInput()
-        {
-            Console.WriteLine("Game of Life!");
-            rows = GetValueInRange("Input the amount of rows for your field:", 3, 1000);
-            columns = GetValueInRange("Input the amount of columns for your field:", 3, 1000);
-            Console.WriteLine("Rows - {0}, Columns - {1}",rows, columns);
-        }
         public static int GetNumericInput(string prompt)
         {
             while(true)
@@ -53,7 +44,7 @@ namespace GameOfLife
                 }
                 else
                 {
-                    Console.WriteLine(NotInRangeMessage);
+                    Console.WriteLine(notInRangeMessage);
                     Console.WriteLine(pressAnyKeyMessage);
                     Console.ReadKey();
                 }
