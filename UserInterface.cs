@@ -9,7 +9,7 @@ namespace GameOfLife
     /// <summary>
     /// User interraction of the application.
     /// </summary>
-    static public class UserInterface
+    public class UserInterface
     {
         private const string notNumericMessage = "Please input numeric value.";
         private const string pressAnyKeyMessage = "Press any key to continiue.";
@@ -26,9 +26,8 @@ namespace GameOfLife
             {
                 Console.Clear();
                 Console.WriteLine(prompt);
-                string? value = Console.ReadLine();
-                bool success = int.TryParse(value, out int result);
-                if(success)
+                string value = Console.ReadLine();
+                if (int.TryParse(value, out int result))
                 {
                     return result;
                 }

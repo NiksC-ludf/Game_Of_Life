@@ -13,23 +13,25 @@ namespace GameOfLife
     {
         readonly public int[,] data;
         readonly public int[,] newData;
+        private const string inputColumnMessage = "Input amount of columns.";
+        private const string inputRowMessage = "Input amount of rows.";
 
         /// <summary>
         /// Data of application.
         /// </summary>
         public GameData()
         {
-            int column = UserInterface.GetValueInRange("Input amount of columns", 5, 200);
-            int row = UserInterface.GetValueInRange("Input amount of rows", 5, 200);
+            int column = UserInterface.GetValueInRange(inputColumnMessage, 5, 200);
+            int row = UserInterface.GetValueInRange(inputRowMessage, 5, 200);
             data = new int[row, column];
             newData = new int[row, column];
-            FillDefault();
+            SetRandomFirstGen();
         }
 
         /// <summary>
-        /// Fills gameboard with random alive cells.
+        /// Fills gameboard with random alive cells for the first generation.
         /// </summary>
-        void FillDefault()
+        void SetRandomFirstGen()
         {
             Random random = new Random();
             for (int i = 0; i < data.GetLength(0); i++)
@@ -42,15 +44,15 @@ namespace GameOfLife
         }
         
         /// <summary>
-        /// Iterates to the next generation.
+        /// Advances game board by one generation.
         /// </summary>
-        public void Iterate()
+        void GetNewGeneration()
         {
             for (int row = 0; row < data.GetLength(0); row++)
             {
                 for (int column = 0; column < data.GetLength(1); column++)
                 {
-                    newData[row, column] = IsLiveCell(row, column) ? 1 : 0;
+                    newData[row, column] = HasCellSurvived(row, column) ? 1 : 0;
                 }
             }
             TransferData();
@@ -83,12 +85,12 @@ namespace GameOfLife
         }
 
         /// <summary>
-        /// Checks if cell is alive next iteration.
+        /// Checks if cell will be alive next generation.
         /// </summary>
         /// <param name="row">Row of cell in question</param>
         /// <param name="column">Column of cell in question</param>
-        /// <returns>True or false cell in question is alive next iteration.</returns>
-        bool IsLiveCell(int row, int column)
+        /// <returns>True or false cell in question is alive next generation.</returns>
+        bool HasCellSurvived(int row, int column)
         {
             int neighbors = GetCountOfNeighbors(row,column);
             bool cellLive = data[row, column] == 1;
@@ -107,9 +109,9 @@ namespace GameOfLife
         }
 
         /// <summary>
-        /// Assigns new iteration values to current iteration.
+        /// Assigns next generations board values to current generation.
         /// </summary>
-        public void TransferData()
+        void TransferData()
         {
             for(int row = 0; row < data.GetLength(0); row++)
             {
@@ -127,7 +129,7 @@ namespace GameOfLife
         {
             while (true)
             {
-                Iterate();
+                GetNewGeneration();
                 UserInterface.Print(data);
                 Thread.Sleep(1000);
             }
