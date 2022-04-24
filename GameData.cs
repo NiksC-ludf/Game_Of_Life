@@ -93,12 +93,12 @@ namespace GameOfLife
         bool HasCellSurvived(int row, int column)
         {
             int neighbors = GetCountOfNeighbors(row,column);
-            bool cellLive = data[row, column] == 1;
+            bool cellAlive = data[row, column] == 1;
             if (neighbors == 3)
             {
                 return true;
             }
-            else if(neighbors == 2 && cellLive)
+            else if(neighbors == 2 && cellAlive)
             {
                 return true;
             }
