@@ -70,7 +70,7 @@ namespace GameOfLife
         /// Prints game board to the console.
         /// </summary>
         /// <param name="args">Array containing the game board.</param>
-        public static void Print(int [,] args)
+        public void Print(int [,] args)
         {
             Console.Clear();
             Console.CursorVisible = false;

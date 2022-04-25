@@ -14,13 +14,13 @@ namespace GameOfLife
         public int[,] data;
         private const string inputColumnMessage = "Input amount of columns.";
         private const string inputRowMessage = "Input amount of rows.";
+        UserInterface userInterface = new UserInterface();
 
         /// <summary>
         /// Data of application.
         /// </summary>
         public GameData()
         {
-            UserInterface userInterface = new UserInterface();
             int column = userInterface.GetValueInRange(inputColumnMessage, 5, 200);
             int row = userInterface.GetValueInRange(inputRowMessage, 5, 200);
             data = new int[row, column];
@@ -30,7 +30,7 @@ namespace GameOfLife
         /// <summary>
         /// Fills gameboard with random alive cells for the first generation.
         /// </summary>
-        void SetRandomFirstGen()
+        private void SetRandomFirstGen()
         {
             Random random = new Random();
             for (int i = 0; i < data.GetLength(0); i++)
@@ -45,7 +45,7 @@ namespace GameOfLife
         /// <summary>
         /// Advances game board by one generation.
         /// </summary>
-        void GetNewGeneration()
+        private void GetNewGeneration()
         {
             int[,] newData = new int[data.GetLength(0), data.GetLength(1)];
             for (int row = 0; row < data.GetLength(0); row++)
@@ -64,7 +64,7 @@ namespace GameOfLife
         /// <param name="actualRow">Row for cell in question.</param>
         /// <param name="actualColumn">Column for cell in question.</param>
         /// <returns>Returns number of neighbors.</returns>
-        int GetCountOfNeighbors(int actualRow, int actualColumn)
+        private int GetCountOfNeighbors(int actualRow, int actualColumn)
         {
             int count = 0;
             int previousRow = actualRow - 1 < 0 ? data.GetLength(0) - 1 : actualRow - 1;
@@ -90,7 +90,7 @@ namespace GameOfLife
         /// <param name="row">Row of cell in question</param>
         /// <param name="column">Column of cell in question</param>
         /// <returns>True or false cell in question is alive next generation.</returns>
-        bool HasCellSurvived(int row, int column)
+        private bool HasCellSurvived(int row, int column)
         {
             int neighbors = GetCountOfNeighbors(row,column);
             bool cellAlive = data[row, column] == 1;
@@ -116,7 +116,7 @@ namespace GameOfLife
             while (true)
             {
                 GetNewGeneration();
-                UserInterface.Print(data);
+                userInterface.Print(data);
                 Thread.Sleep(1000);
             }
         }
