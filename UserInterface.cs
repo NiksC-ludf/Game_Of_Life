@@ -20,7 +20,7 @@ namespace GameOfLife
         /// </summary>
         /// <param name="prompt">Text to display for the user.</param>
         /// <returns>Returns user input as int value.</returns>
-        public static int GetNumericInput(string prompt)
+        public int GetNumericInput(string prompt)
         {
             while(true)
             {
@@ -47,7 +47,7 @@ namespace GameOfLife
         /// <param name="minValue">Minimal acceptable value.</param>
         /// <param name="maxValue">Maximal acceptable value.</param>
         /// <returns>Returns user input within the specified range.</returns>
-        public static int GetValueInRange(string prompt, int minValue, int maxValue)
+        public int GetValueInRange(string prompt, int minValue, int maxValue)
         {
             while(true)
             {

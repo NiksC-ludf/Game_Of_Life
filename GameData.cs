@@ -11,8 +11,7 @@ namespace GameOfLife
     /// </summary>
     public class GameData
     {
-        readonly public int[,] data;
-        readonly public int[,] newData;
+        public int[,] data;
         private const string inputColumnMessage = "Input amount of columns.";
         private const string inputRowMessage = "Input amount of rows.";
 
@@ -21,10 +20,10 @@ namespace GameOfLife
         /// </summary>
         public GameData()
         {
-            int column = UserInterface.GetValueInRange(inputColumnMessage, 5, 200);
-            int row = UserInterface.GetValueInRange(inputRowMessage, 5, 200);
+            UserInterface userInterface = new UserInterface();
+            int column = userInterface.GetValueInRange(inputColumnMessage, 5, 200);
+            int row = userInterface.GetValueInRange(inputRowMessage, 5, 200);
             data = new int[row, column];
-            newData = new int[row, column];
             SetRandomFirstGen();
         }
 
@@ -48,6 +47,7 @@ namespace GameOfLife
         /// </summary>
         void GetNewGeneration()
         {
+            int[,] newData = new int[data.GetLength(0), data.GetLength(1)];
             for (int row = 0; row < data.GetLength(0); row++)
             {
                 for (int column = 0; column < data.GetLength(1); column++)
@@ -55,7 +55,7 @@ namespace GameOfLife
                     newData[row, column] = HasCellSurvived(row, column) ? 1 : 0;
                 }
             }
-            TransferData();
+            Array.Copy(newData, 0, data, 0, newData.Length);
         }
 
         /// <summary>
@@ -105,20 +105,6 @@ namespace GameOfLife
             else
             {
                 return false;
-            }
-        }
-
-        /// <summary>
-        /// Assigns next generations board values to current generation.
-        /// </summary>
-        void TransferData()
-        {
-            for(int row = 0; row < data.GetLength(0); row++)
-            {
-                for(int column = 0; column < data.GetLength(1); column++)
-                {
-                    data[row, column] = newData[row, column];
-                }
             }
         }
 
