@@ -7,7 +7,7 @@ public class Program
 {
     static void Main()
     {
-        GameData gameData = new GameData();
-        gameData.Play();
+        GameManager gameManager = new GameManager();
+        gameManager.Play();
     }
 }

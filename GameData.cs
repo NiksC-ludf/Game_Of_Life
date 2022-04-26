@@ -11,33 +11,28 @@ namespace GameOfLife
     /// </summary>
     public class GameData
     {
-        public int[,] data;
-        private const string inputColumnMessage = "Input amount of columns.";
-        private const string inputRowMessage = "Input amount of rows.";
-        UserInterface userInterface = new UserInterface();
+        public int[,] gameField;
 
         /// <summary>
         /// Data of application.
         /// </summary>
-        public GameData()
+        public GameData(int row, int column)
         {
-            int column = userInterface.GetValueInRange(inputColumnMessage, 5, 200);
-            int row = userInterface.GetValueInRange(inputRowMessage, 5, 200);
-            data = new int[row, column];
-            SetRandomFirstGen();
+            gameField = new int[row, column];
+            SetRandomFirstGeneration();
         }
 
         /// <summary>
         /// Fills gameboard with random alive cells for the first generation.
         /// </summary>
-        private void SetRandomFirstGen()
+        private void SetRandomFirstGeneration()
         {
             Random random = new Random();
-            for (int i = 0; i < data.GetLength(0); i++)
+            for (int i = 0; i < gameField.GetLength(0); i++)
             {
-                for (int j = 0; j < data.GetLength(1); j++)
+                for (int j = 0; j < gameField.GetLength(1); j++)
                 {
-                    data[i, j] = random.Next(0, 4) == 0 ? 1 : 0;
+                    gameField[i, j] = random.Next(0, 4) == 0 ? 1 : 0;
                 }
             }
         }
@@ -45,17 +40,17 @@ namespace GameOfLife
         /// <summary>
         /// Advances game board by one generation.
         /// </summary>
-        private void GetNewGeneration()
+        public void GetNewGeneration()
         {
-            int[,] newData = new int[data.GetLength(0), data.GetLength(1)];
-            for (int row = 0; row < data.GetLength(0); row++)
+            int[,] newGameField = new int[gameField.GetLength(0), gameField.GetLength(1)];
+            for (int row = 0; row < gameField.GetLength(0); row++)
             {
-                for (int column = 0; column < data.GetLength(1); column++)
+                for (int column = 0; column < gameField.GetLength(1); column++)
                 {
-                    newData[row, column] = HasCellSurvived(row, column) ? 1 : 0;
+                    newGameField[row, column] = HasCellSurvived(row, column) ? 1 : 0;
                 }
             }
-            Array.Copy(newData, 0, data, 0, newData.Length);
+            Array.Copy(newGameField, 0, gameField, 0, newGameField.Length);
         }
 
         /// <summary>
@@ -67,19 +62,19 @@ namespace GameOfLife
         private int GetCountOfNeighbors(int actualRow, int actualColumn)
         {
             int count = 0;
-            int previousRow = actualRow - 1 < 0 ? data.GetLength(0) - 1 : actualRow - 1;
-            int nextRow = actualRow + 1 > data.GetLength(0) - 1 ? 0 : actualRow + 1;
-            int previousColumn = actualColumn - 1 < 0 ? data.GetLength(1) - 1 : actualColumn - 1;
-            int nextColumn = actualColumn + 1 > data.GetLength(1) - 1 ? 0 : actualColumn + 1;
+            int previousRow = actualRow - 1 < 0 ? gameField.GetLength(0) - 1 : actualRow - 1;
+            int nextRow = actualRow + 1 > gameField.GetLength(0) - 1 ? 0 : actualRow + 1;
+            int previousColumn = actualColumn - 1 < 0 ? gameField.GetLength(1) - 1 : actualColumn - 1;
+            int nextColumn = actualColumn + 1 > gameField.GetLength(1) - 1 ? 0 : actualColumn + 1;
 
-            count = data[previousRow, previousColumn];
-            count += data[previousRow, actualColumn];
-            count += data[previousRow, nextColumn];
-            count += data[actualRow, previousColumn];
-            count += data[actualRow, nextColumn];
-            count += data[nextRow, previousColumn];
-            count += data[nextRow, actualColumn];
-            count += data[nextRow, nextColumn];
+            count = gameField[previousRow, previousColumn];
+            count += gameField[previousRow, actualColumn];
+            count += gameField[previousRow, nextColumn];
+            count += gameField[actualRow, previousColumn];
+            count += gameField[actualRow, nextColumn];
+            count += gameField[nextRow, previousColumn];
+            count += gameField[nextRow, actualColumn];
+            count += gameField[nextRow, nextColumn];
 
             return count;
         }
@@ -93,7 +88,7 @@ namespace GameOfLife
         private bool HasCellSurvived(int row, int column)
         {
             int neighbors = GetCountOfNeighbors(row,column);
-            bool cellAlive = data[row, column] == 1;
+            bool cellAlive = gameField[row, column] == 1;
             if (neighbors == 3)
             {
                 return true;
@@ -105,19 +100,6 @@ namespace GameOfLife
             else
             {
                 return false;
-            }
-        }
-
-        /// <summary>
-        /// Starts the game.
-        /// </summary>
-        public void Play()
-        {
-            while (true)
-            {
-                GetNewGeneration();
-                userInterface.Print(data);
-                Thread.Sleep(1000);
             }
         }
     }

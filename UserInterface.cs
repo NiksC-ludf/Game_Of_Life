@@ -20,7 +20,7 @@ namespace GameOfLife
         /// </summary>
         /// <param name="prompt">Text to display for the user.</param>
         /// <returns>Returns user input as int value.</returns>
-        public int GetNumericInput(string prompt)
+        private int GetNumericInput(string prompt)
         {
             while(true)
             {
