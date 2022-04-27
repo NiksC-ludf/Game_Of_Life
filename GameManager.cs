@@ -13,6 +13,8 @@ namespace GameOfLife
     {
         private const string inputColumnMessage = "Input amount of columns.";
         private const string inputRowMessage = "Input amount of rows.";
+        private const string aliveCellMessage = "Amount of alive cells: ";
+        private const string iterationCounterMessage = "Current iteration: ";
 
         /// <summary>
         /// Starts the game.
@@ -28,6 +30,8 @@ namespace GameOfLife
             {
                 gameData.GetNewGeneration();
                 userInterface.Print(gameData.gameField);
+                userInterface.Print(iterationCounterMessage, gameData.countOfIteration);
+                userInterface.Print(aliveCellMessage, gameData.countOfAliveCells);
                 Thread.Sleep(1000);
             }
         }

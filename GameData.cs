@@ -12,12 +12,16 @@ namespace GameOfLife
     public class GameData
     {
         public int[,] gameField;
+        public int countOfIteration;
+        public int countOfAliveCells;
 
         /// <summary>
         /// Data of application.
         /// </summary>
         public GameData(int row, int column)
         {
+            countOfIteration = 0;
+            countOfAliveCells = 0;
             gameField = new int[row, column];
             SetRandomFirstGeneration();
         }
@@ -43,14 +47,17 @@ namespace GameOfLife
         public void GetNewGeneration()
         {
             int[,] newGameField = new int[gameField.GetLength(0), gameField.GetLength(1)];
+            countOfAliveCells = 0;
             for (int row = 0; row < gameField.GetLength(0); row++)
             {
                 for (int column = 0; column < gameField.GetLength(1); column++)
                 {
                     newGameField[row, column] = HasCellSurvived(row, column) ? 1 : 0;
+                    countOfAliveCells += gameField[row, column] == 1 ? 1 : 0;
                 }
             }
             Array.Copy(newGameField, 0, gameField, 0, newGameField.Length);
+            countOfIteration++;
         }
 
         /// <summary>

@@ -85,5 +85,9 @@ namespace GameOfLife
             }
             Console.WriteLine();
         }
+        public void Print(string message, int number)
+        {
+            Console.WriteLine("{0}{1}", message, number);
+        }
     }
 }
