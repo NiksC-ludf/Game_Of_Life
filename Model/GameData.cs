@@ -9,11 +9,17 @@ namespace GameOfLife
     /// <summary>
     /// Data of application.
     /// </summary>
+    [Serializable]
     public class GameData
     {
         public int[,] gameField;
         public int countOfIteration;
         public int countOfAliveCells;
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public GameData() { }
 
         /// <summary>
         /// Data of application.
