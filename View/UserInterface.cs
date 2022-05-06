@@ -22,6 +22,7 @@ namespace GameOfLife
             {
                 Console.WriteLine(prompt);
                 string value = Console.ReadLine();
+
                 if (int.TryParse(value, out int result))
                 {
                     return result;
@@ -47,6 +48,7 @@ namespace GameOfLife
             while(true)
             {
                 int number = GetNumericInput(prompt);
+
                 if (number >= minValue && number <= maxValue)
                 {
                     return number;
@@ -69,14 +71,17 @@ namespace GameOfLife
             Console.Clear();
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
+
             for (int i = 0; i < args.GetLength(0); i++)
             {
                 for (int j = 0; j < args.GetLength(1); j++)
                 {
                     Console.Write(args[i, j] == 1 ? "@" : ".");
                 }
+
                 Console.WriteLine();
             }
+
             Console.WriteLine();
         }
 

@@ -27,5 +27,15 @@ namespace GameOfLife
         public const string filePath = @"C:\Users\niks.cibulis\source\repos\Game_of_Life\GameData.txt";
         public const string choice = "Input your choice:";
         public const string exitOrSaveMessage = "Press 'S' to save current iteration to file.\nPress 'Z' to exit application.";
+        public const int minRowCount = 5;
+        public const int maxRowCount = 200;
+        public const int minColumnCount = 5;
+        public const int maxColumnCount = 200;
+    }
+
+    public enum MenuOptions
+    {
+        firstOption = 1,
+        secondOption = 2
     }
 }

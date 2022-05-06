@@ -59,10 +59,11 @@ namespace GameOfLife
                 for (int column = 0; column < gameField.GetLength(1); column++)
                 {
                     newGameField[row, column] = HasCellSurvived(row, column) ? 1 : 0;
-                    countOfAliveCells += gameField[row, column] == 1 ? 1 : 0;
+                    countOfAliveCells += newGameField[row, column];
                 }
             }
-            Array.Copy(newGameField, 0, gameField, 0, newGameField.Length);
+
+            Array.Copy(newGameField, gameField, newGameField.Length);
             countOfIteration++;
         }
 
@@ -102,6 +103,7 @@ namespace GameOfLife
         {
             int neighbors = GetCountOfNeighbors(row,column);
             bool cellAlive = gameField[row, column] == 1;
+
             if (neighbors == 3)
             {
                 return true;

@@ -21,12 +21,9 @@ namespace GameOfLife
         /// <param name="fileName">File path to save data to.</param>
         public void SerializeObject<T>(T serializableObject, string fileName)
         {
-            if (File.Exists(fileName))
-            {
-                File.Delete(fileName);
-            }
             FileStream fileStream = new FileStream(fileName, FileMode.Create);
             var binaryFormatter = new BinaryFormatter();
+
             try
             {
                 binaryFormatter.Serialize(fileStream, serializableObject);
@@ -51,6 +48,7 @@ namespace GameOfLife
         {
             GameData data = new GameData();
             FileStream fs = new FileStream(fileName, FileMode.Open);
+
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();

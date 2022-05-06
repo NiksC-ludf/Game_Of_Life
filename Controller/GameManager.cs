@@ -21,13 +21,12 @@ namespace GameOfLife
             UserInterface userInterface = new UserInterface();
             ConsoleKeyInfo consoleKeyInfo;
             GameData gameData;
-
             userInterface.PrintRules();
 
-            if (userInterface.GetValueInRange(Repository.choice, 1, 2) == 1)
+            if (userInterface.GetValueInRange(Repository.choice, (int)MenuOptions.firstOption, (int)MenuOptions.secondOption) == (int)MenuOptions.firstOption)
             {
-                int column = userInterface.GetValueInRange(Repository.inputColumnMessage, 5, 200);
-                int row = userInterface.GetValueInRange(Repository.inputRowMessage, 5, 200);
+                int column = userInterface.GetValueInRange(Repository.inputColumnMessage, Repository.minColumnCount, Repository.maxColumnCount);
+                int row = userInterface.GetValueInRange(Repository.inputRowMessage, Repository.minRowCount, Repository.maxRowCount);
                 gameData = new GameData(row, column);
             }
             else
@@ -46,11 +45,14 @@ namespace GameOfLife
                     Console.WriteLine(Repository.exitOrSaveMessage);
                     Thread.Sleep(1000);
                 }
+
                 consoleKeyInfo = Console.ReadKey(true);
+
                 if(consoleKeyInfo.Key == ConsoleKey.S)
                 {
                     SaveGame(gameData);
                 }
+
             } while (consoleKeyInfo.Key != ConsoleKey.Z);
         }
 
