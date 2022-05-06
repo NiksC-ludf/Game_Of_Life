@@ -23,7 +23,7 @@ namespace GameOfLife
             GameData gameData;
             userInterface.PrintRules();
 
-            if (userInterface.GetValueInRange(Repository.choice, (int)MenuOptions.firstOption, (int)MenuOptions.secondOption) == (int)MenuOptions.firstOption)
+            if (userInterface.GetValueInRange(Repository.choice, (int)MenuOptions.optionNewRandomGame, (int)MenuOptions.optionLoadSavedGame) == (int)MenuOptions.optionNewRandomGame)
             {
                 int column = userInterface.GetValueInRange(Repository.inputColumnMessage, Repository.minColumnCount, Repository.maxColumnCount);
                 int row = userInterface.GetValueInRange(Repository.inputRowMessage, Repository.minRowCount, Repository.maxRowCount);
