@@ -35,7 +35,7 @@ namespace GameOfLife
 
     public enum MenuOptions
     {
-        optionNewRandomGame = 1,
-        optionLoadSavedGame = 2
+        newRandomGame = 1,
+        loadSavedGame = 2
     }
 }
