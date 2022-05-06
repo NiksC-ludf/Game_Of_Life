@@ -11,10 +11,6 @@ namespace GameOfLife
     /// </summary>
     public class UserInterface
     {
-        private const string notNumericMessage = "Please input numeric value.";
-        private const string pressAnyKeyMessage = "Press any key to continiue.";
-        private const string notInRangeMessage = "The value is not within range.";
-
         /// <summary>
         /// Gets numeric input from the user.
         /// </summary>
@@ -24,17 +20,17 @@ namespace GameOfLife
         {
             while(true)
             {
-                Console.Clear();
                 Console.WriteLine(prompt);
                 string value = Console.ReadLine();
+
                 if (int.TryParse(value, out int result))
                 {
                     return result;
                 }
                 else
                 {
-                    Console.WriteLine(notNumericMessage);
-                    Console.WriteLine(pressAnyKeyMessage);
+                    Console.WriteLine(Repository.notNumericMessage);
+                    Console.WriteLine(Repository.pressAnyKeyMessage);
                     Console.ReadKey();
                 }
             }
@@ -51,16 +47,16 @@ namespace GameOfLife
         {
             while(true)
             {
-                Console.Clear();
                 int number = GetNumericInput(prompt);
+
                 if (number >= minValue && number <= maxValue)
                 {
                     return number;
                 }
                 else
                 {
-                    Console.WriteLine(notInRangeMessage);
-                    Console.WriteLine(pressAnyKeyMessage);
+                    Console.WriteLine(Repository.notInRangeMessage);
+                    Console.WriteLine(Repository.pressAnyKeyMessage);
                     Console.ReadKey();
                 }
             }
@@ -75,14 +71,41 @@ namespace GameOfLife
             Console.Clear();
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);
+
             for (int i = 0; i < args.GetLength(0); i++)
             {
                 for (int j = 0; j < args.GetLength(1); j++)
                 {
                     Console.Write(args[i, j] == 1 ? "@" : ".");
                 }
+
                 Console.WriteLine();
             }
+
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// Overloaded print method to print message and number.
+        /// </summary>
+        /// <param name="message">Message to print.</param>
+        /// <param name="number">Number to print after message.s</param>
+        public void Print(string message, int number)
+        {
+            Console.WriteLine("{0}{1}", message, number);
+        }
+
+        /// <summary>
+        /// Method to display game rules.
+        /// </summary>
+        public void PrintRules()
+        {
+            Console.WriteLine(Repository.welcomeMessage);
+            Console.WriteLine(Repository.instructionsHeader);
+            Console.WriteLine(Repository.instructionOne);
+            Console.WriteLine(Repository.instructionTwo);
+            Console.WriteLine();
+            Console.WriteLine(Repository.exitOrSaveMessage);
             Console.WriteLine();
         }
     }

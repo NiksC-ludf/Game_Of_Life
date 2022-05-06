@@ -9,15 +9,25 @@ namespace GameOfLife
     /// <summary>
     /// Data of application.
     /// </summary>
+    [Serializable]
     public class GameData
     {
         public int[,] gameField;
+        public int countOfIteration;
+        public int countOfAliveCells;
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public GameData() { }
 
         /// <summary>
         /// Data of application.
         /// </summary>
         public GameData(int row, int column)
         {
+            countOfIteration = 0;
+            countOfAliveCells = 0;
             gameField = new int[row, column];
             SetRandomFirstGeneration();
         }
@@ -43,14 +53,18 @@ namespace GameOfLife
         public void GetNewGeneration()
         {
             int[,] newGameField = new int[gameField.GetLength(0), gameField.GetLength(1)];
+            countOfAliveCells = 0;
             for (int row = 0; row < gameField.GetLength(0); row++)
             {
                 for (int column = 0; column < gameField.GetLength(1); column++)
                 {
                     newGameField[row, column] = HasCellSurvived(row, column) ? 1 : 0;
+                    countOfAliveCells += newGameField[row, column];
                 }
             }
-            Array.Copy(newGameField, 0, gameField, 0, newGameField.Length);
+
+            Array.Copy(newGameField, gameField, newGameField.Length);
+            countOfIteration++;
         }
 
         /// <summary>
@@ -89,6 +103,7 @@ namespace GameOfLife
         {
             int neighbors = GetCountOfNeighbors(row,column);
             bool cellAlive = gameField[row, column] == 1;
+
             if (neighbors == 3)
             {
                 return true;
